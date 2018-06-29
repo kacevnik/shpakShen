@@ -13,11 +13,45 @@ function woocommerce_support() {
     add_theme_support( 'wc-product-gallery-slider' );
 }
 
+function woocommerce_template_loop_add_to_cart_custom( $args = array() ) {
+    global $product;
+
+    if ( $product ) {
+        $defaults = array(
+            'quantity'   => 1,
+            'class'      => implode( ' ', array_filter( array(
+                'button',
+                'product_type_' . $product->get_type(),
+                $product->is_purchasable() && $product->is_in_stock() ? 'add_to_cart_button' : '',
+                $product->supports( 'ajax_add_to_cart' ) ? 'ajax_add_to_cart item__buy' : '',
+            ) ) ),
+            'attributes' => array(
+                'data-product_id'  => $product->get_id(),
+                'data-product_sku' => $product->get_sku(),
+                'aria-label'       => $product->add_to_cart_description(),
+                'rel'              => 'nofollow',
+            ),
+        );
+
+        $args = apply_filters( 'woocommerce_loop_add_to_cart_args', wp_parse_args( $args, $defaults ), $product );
+
+        if ( isset( $args['attributes']['aria-label'] ) ) {
+            $args['attributes']['aria-label'] = strip_tags( $args['attributes']['aria-label'] );
+        }
+
+        wc_get_template( 'loop/add-to-cart.php', $args );
+    }
+}
+
+add_theme_support('post-thumbnails');
+set_post_thumbnail_size(300, 300);
+add_image_size('custom-thumbnails', 300, 300, true); // Миниатюра товара на главной странице
+
 add_action('wp_print_styles', 'add_styles'); // приклеем ф-ю на добавление стилей в хедер
 if (!function_exists('add_styles')) { // если ф-я уже есть в дочерней теме - нам не надо её определять
     function add_styles() { // добавление стилей
         if(is_admin()) return false; // если мы в админке - ничего не делаем
-            //wp_enqueue_style( 'fancybox', get_template_directory_uri() . '/css/jquery.fancybox.min.css', array());
+            wp_enqueue_style( 'fancybox', get_template_directory_uri() . '/css/jquery.fancybox.min.css', array());
             wp_enqueue_style( 'owl-carusel', get_template_directory_uri() . '/css/owl.carousel.min.css', array());
             wp_enqueue_style( 'main', get_template_directory_uri() . '/css/style.css', array());
     }
@@ -28,7 +62,7 @@ if (!function_exists('add_scripts')) { // если ф-я уже есть в до
     function add_scripts() { // добавление скриптов
         if(is_admin()) return false; // если мы в админке - ничего не делаем
         wp_enqueue_script("jquery");
-        //wp_enqueue_script('fancybox', get_template_directory_uri().'/js/jquery.fancybox.min.js','','',true); 
+        wp_enqueue_script('fancybox', get_template_directory_uri().'/js/jquery.fancybox.min.js','','',true); 
         wp_enqueue_script('owl-carusel', get_template_directory_uri().'/js/owl.carousel.min.js','','',true); 
         wp_enqueue_script('main', get_template_directory_uri().'/js/main.js','','',true); 
     }

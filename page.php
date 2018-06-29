@@ -47,7 +47,6 @@ endif;
 
 ?>
                     </ul>
-
                 </div>
             </div>
         </div>
@@ -59,7 +58,6 @@ endif;
                 <h2><?php the_field('block_about_me_tittle'); ?></h2>
             </div>
         </div>
-
         <div class="row">
             <div class="col-md-5 col-sm-6">
                 <div class="about__img">
@@ -70,72 +68,111 @@ endif;
                 <?php the_field('block_about_me_text'); ?>
             </div>
         </div>
-
     </div>
 </section>
 
-
-
 <section class="product">
     <div class="container">
-
         <div class="row">
             <div class="col-md-12">
                 <h2>Мои изделия</h2>
             </div>
-        </div>
+        </div><!--end row -->
+        <?php
+            global $product;
 
-        <!-- BEGIN BLOCK -->
+            $args_category_list = array(
+                'fields'         => 'all',
+                'hide_empty'     => 1
+            );
 
-    <!-- END BLOCK -->
+            $category_sistem_list = get_terms( 'product_cat', $arargs_category_listgs );
+            // echo '<pre>';
+            // print_r($category_sistem_list);
+            // echo '</pre>';
+            foreach ($category_sistem_list as $category_sistem_list_item) {
+        ?>
+        <!-- DEGIN ITEM CATEGORY-->
+        <div class="row" id="<?php echo $category_sistem_list_item->slug; ?>">
+            <div class="col-md-12">
+                <h3><?php echo $category_sistem_list_item->name; ?></h3>
+            </div><!--end col-md-12 -->
+        </div><!--end row -->
+        <div class="row">
+            <div class="col-md-12">
+                <div class="owl-carousel">
+                    <!-- BEGIN OWL-CAROUSEL ITEM & PRODUCT -->
+                    <?php
+                        $arg_post_sistem = array(
+                          'tax_query' => array(
+                              array(
+                                  'taxonomy' => 'product_cat',
+                                  'field' => 'slug',
+                                  'terms' => $category_sistem_list_item->slug
+                              )
+                          ),
+                          'post_type' => 'product',
+                          'posts_per_page' => -1
+                        );
 
-    <!-- BEGIN BLOCK -->
-    <div class="row" id="block2">
-    <h3>Альбомы</h3>
-<?php echo do_shortcode("[product_category category='albomy' per_page='12']"); ?>
+                        $loop = new WP_Query( $arg_post_sistem );
 
-    </div>
+                        while ( $loop->have_posts() ) : $loop->the_post();
 
-<!-- END BLOCK -->
-<!-- BEGIN BLOCK -->
-<div class="row" id="block3">
-<h3>Блокноты</h3>
-<?php echo do_shortcode("[product_category category='bloknoty' ]"); ?>
-</div>
-<!-- END BLOCK -->
-<!-- BEGIN BLOCK -->
-<div class="row" id="block4">
-<h3>Кулинарные книги</h3>
-<?php echo do_shortcode("[product_category category='kulinarnye-knigi' ]"); ?>
-</div>
-<!-- END BLOCK -->
+                            $nal = $product->get_availability()['class'];
+                            if($nal == 'out-of-stock'){
+                                $nal_class     = 'no_instock_css';
+                                $nav_class_div = ' no-active-button';
+                                $nal_text      = 'На данный момент товара нет';
+                            }else{
+                                $nal_class = 'instock_css';
+                                $nav_class_div = '';
+                                $nal_text  = 'Осталось всего 1';
+                            }
 
-<!-- BEGIN BLOCK -->
-<div class="row" id="block5">
-<h3>Мамины сокровища</h3>
-<?php echo do_shortcode("[product_category category='maminy-sokrovishha' ]"); ?>
-</div>
-<!-- END BLOCK -->
-<!-- BEGIN BLOCK -->
-<div class="row" id="block6">
-<h3>Обложки</h3>
-<?php echo do_shortcode("[product_category category='oblozhki' ]"); ?>
-</div>
-<!-- END BLOCK -->
-<!-- BEGIN BLOCK -->
-<div class="row" id="block7">
-<h3>Для свадьбы</h3>
-<?php echo do_shortcode("[product_category category='shkatulki' ]"); ?>
-</div>
-<!-- END BLOCK -->
+                            $price = get_post_meta( get_the_ID(), '_regular_price', true);
+                    ?>
+                    <div class="item<?php echo $nav_class_div; ?>">
+                        <div class="gallery">
+                            <a href="<?php echo get_the_post_thumbnail_url( $loop->ID, 'full' ); ?>" data-fancybox="image_<?php echo the_ID(); ?>" class="item__img">
+                                <img src="<?php echo get_the_post_thumbnail_url( $loop->ID, 'custom-thumbnails' ); ?>">
+                                <?php the_content(); ?>
+                            </a>
+                            <div class="item__price"><?php echo $price; ?> руб.</div>
+                            <div class="hide_galary">
+                            <?php 
+                                $attachment_ids = $product->get_gallery_attachment_ids();
 
-<!-- BEGIN BLOCK -->
-<div class="row" id="block8">
-<h3>Подарочные сертификаты</h3>
-<?php echo do_shortcode("[product_category category='sertifikaty-i-upakovka' ]"); ?>
-</div>
-
-</div>
+                                foreach( $attachment_ids as $attachment_id ) {
+                            ?>
+                                    <a href="<?php echo wp_get_attachment_image_src( $attachment_id, 'full')[0]; ?>" data-fancybox="image_<?php echo the_ID(); ?>">
+                                        <img src="<?php echo wp_get_attachment_image_src( $lattachment_id, 'thumbnail')[0]; ?>">
+                                    </a>
+                            <?php
+                                }
+                            ?>
+                            </div><!-- end hide_galary -->
+                            <h4><?php the_title(); ?></h4>
+                            <span>
+                                <span class="<?php echo $nal_class; ?>"><?php echo $nal_text; ?></span>
+                            </span>
+                            <div class="add-to-cart-btn">
+                                <?php woocommerce_template_loop_add_to_cart_custom( $loop->post, $product ); ?>
+                                <a href="#popup-order" class="open-popup-link item__order">Заказать</a>
+                            </div><!-- end add-to-cart-btn -->
+                        </div><!-- end gallery -->
+                    </div><!-- end item -->
+                    <?php
+                        endwhile;
+                        wp_reset_query();
+                    ?>
+                    <!-- END OWL-CAROUSEL ITEM & PRODUCT -->
+                </div><!--end owl-carousel -->
+            </div><!--end col-md-12 -->
+        </div><!--end row -->
+        <!-- END ITEM CATEGORY-->
+    <?php } ?>
+    </div><!--end container -->
 </section>
 
 <section class="issues">

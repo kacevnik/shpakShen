@@ -16,22 +16,22 @@ get_header(); ?>
 <?php get_template_part( 'template-parts/featured-image' ); ?>
 <?php the_field('production_time'); ?>
 <section class="about">
-	<nav class="staticHeader">
-		<div class="container">
-			<div class="row">
-				<div class="col-md-12">
-					<div class="mobile-btn" onclick="myFunction(this);">
-						<div class="bar1"></div>
-						<div class="bar2"></div>
-						<div class="bar3"></div>
-					</div>
-					<ul>
-					<?php
+    <nav class="staticHeader">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="mobile-btn" onclick="myFunction(this);">
+                        <div class="bar1"></div>
+                        <div class="bar2"></div>
+                        <div class="bar3"></div>
+                    </div>
+                    <ul>
+                    <?php
 
 // check if the repeater field has rows of data
 if( have_rows('menu_m') ):
 
- 	// loop through the rows of data
+    // loop through the rows of data
     while ( have_rows('menu_m') ) : the_row();
 
         // display a sub field value
@@ -46,55 +46,55 @@ else :
 endif;
 
 ?>
-					</ul>
+                    </ul>
 
-				</div>
-			</div>
-		</div>
-	</nav>
-	<div class="container">
+                </div>
+            </div>
+        </div>
+    </nav>
+    <div class="container">
 
-		<div class="row">
-			<div class="col-md-12">
-				<h2><?php the_field('block_about_me_tittle'); ?></h2>
-			</div>
-		</div>
+        <div class="row">
+            <div class="col-md-12">
+                <h2><?php the_field('block_about_me_tittle'); ?></h2>
+            </div>
+        </div>
 
-		<div class="row">
-			<div class="col-md-5 col-sm-6">
-				<div class="about__img">
-					<img src="<?php the_field('block_about_me_img'); ?>" >
-				</div>
-			</div>
-			<div class="col-md-7 col-sm-6">
-				<?php the_field('block_about_me_text'); ?>
-			</div>
-		</div>
+        <div class="row">
+            <div class="col-md-5 col-sm-6">
+                <div class="about__img">
+                    <img src="<?php the_field('block_about_me_img'); ?>" >
+                </div>
+            </div>
+            <div class="col-md-7 col-sm-6">
+                <?php the_field('block_about_me_text'); ?>
+            </div>
+        </div>
 
-	</div>
+    </div>
 </section>
 
 
 
 <section class="product">
-	<div class="container">
+    <div class="container">
 
-		<div class="row">
-			<div class="col-md-12">
-				<h2>Мои изделия</h2>
-			</div>
-		</div>
+        <div class="row">
+            <div class="col-md-12">
+                <h2>Мои изделия</h2>
+            </div>
+        </div>
 
-		<!-- BEGIN BLOCK -->
+        <!-- BEGIN BLOCK -->
 
-	<!-- END BLOCK -->
+    <!-- END BLOCK -->
 
-	<!-- BEGIN BLOCK -->
-	<div class="row" id="block2">
-	<h3>Альбомы</h3>
+    <!-- BEGIN BLOCK -->
+    <div class="row" id="block2">
+    <h3>Альбомы</h3>
 <?php echo do_shortcode("[product_category category='albomy' per_page='12']"); ?>
 
-	</div>
+    </div>
 
 <!-- END BLOCK -->
 <!-- BEGIN BLOCK -->
@@ -139,51 +139,51 @@ endif;
 </section>
 
 <section class="issues">
-	<div class="container">
+    <div class="container">
 
-		<div class="row">
-			<div class="col-md-12">
-				<h2><?php the_field('an_on_ques_tittle'); ?></h2>
-			</div>
-		</div>
+        <div class="row">
+            <div class="col-md-12">
+                <h2><?php the_field('an_on_ques_tittle'); ?></h2>
+            </div>
+        </div>
 
-		<div class="row">
-			<div class="col-md-12">
+        <div class="row">
+            <div class="col-md-12">
 
 
-				<?php if( have_rows('an_on_ques') ): ?>
+                <?php if( have_rows('an_on_ques') ): ?>
 
-					<?php while( have_rows('an_on_ques') ): the_row();
+                    <?php while( have_rows('an_on_ques') ): the_row();
 
-							// vars
+                            // vars
 
-					$title = get_sub_field('question');
-					$content = get_sub_field('answer');
+                    $title = get_sub_field('question');
+                    $content = get_sub_field('answer');
 
-					?>
+                    ?>
 
-					<div class="issues__item">
-						<span><?php echo $title; ?></span>
-						<div class="more-text">+</div>
-						<p><?php echo $content; ?></p>
+                    <div class="issues__item">
+                        <span><?php echo $title; ?></span>
+                        <div class="more-text">+</div>
+                        <p><?php echo $content; ?></p>
 
-					</div>
-					
-					
-					
-					
-					
+                    </div>
+                    
+                    
+                    
+                    
+                    
 
-				<?php endwhile; ?>
+                <?php endwhile; ?>
 
-			<?php endif; ?>
+            <?php endif; ?>
 
-			<p class="issues__descr"><?php the_field('delivery'); ?></p>
+            <p class="issues__descr"><?php the_field('delivery'); ?></p>
 
-		</div>
-		
+        </div>
+        
 
-	</div>
+    </div>
 
 </div>
 </section>

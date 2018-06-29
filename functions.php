@@ -13,6 +13,26 @@ function woocommerce_support() {
     add_theme_support( 'wc-product-gallery-slider' );
 }
 
+add_filter('add_to_cart_fragments', 'header_add_to_cart_fragment');
+
+add_filter( 'woocommerce_add_to_cart_fragments', 'woocommerce_header_add_to_cart_fragment' );
+
+function woocommerce_header_add_to_cart_fragment( $fragments ) {
+    ob_start();
+    ?>
+    <a href="#cart-popup" class="open-popup-link cart-customlocation cart__item cart-contents cart-contents">
+      <span>Ваша корзина:</span>
+      <strong>
+        <span class="woocommerce-Price-amount amount"><?php echo WC()->cart->cart_contents_total; ?>
+          <span class="woocommerce-Price-currencySymbol"> руб.</span>
+        </span>
+      </strong>
+    </a>
+    <?php
+    $fragments['a.cart-contents'] = ob_get_clean();
+    return $fragments;
+}
+
 function woocommerce_template_loop_add_to_cart_custom( $args = array() ) {
     global $product;
 

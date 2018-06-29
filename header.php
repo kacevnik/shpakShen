@@ -119,15 +119,14 @@
                     <div class="socials">
                         <a href="#" class="socials__item socials__item__email"><img src="/app/img/mail-icon.png" alt="Email"></a>
                         <a href="https://vk.com/shpakshenprodakshen" class="socials__item socials__item__vk"><img src="/app/img/vk-icon.png" alt="VK"></a>
-
-<div class="s-header__basket-wr woocommerce">
-    <?php
-    global $woocommerce; ?>
-    <a href="<?php echo $woocommerce->cart->get_cart_url() ?>" class="basket-btn basket-btn_fixed-xs">
-        <span class="basket-btn__label">Корзина</span>
-        <span class="basket-btn__counter">(<?php echo sprintf($woocommerce->cart->cart_contents_count); ?>)</span>
-    </a>
-</div>
+                        <a href="#cart-popup" class="open-popup-link cart-customlocation cart__item cart-contents cart-contents">
+                          <span>Ваша корзина:</span>
+                          <strong>
+                            <span class="woocommerce-Price-amount amount"><?php echo WC()->cart->cart_contents_total; ?>
+                              <span class="woocommerce-Price-currencySymbol"> руб.</span>
+                            </span>
+                          </strong>
+                        </a>
                     </div>
                 </div>
             </div>

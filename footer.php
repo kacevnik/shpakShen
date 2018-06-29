@@ -19,10 +19,14 @@
             </div>
             <div class="col-md-5 col-sm-5 col-xs-6">
                 <div class="socials">
-                    <a href="#cart-popup" class="open-popup-link cart-customlocation cart__item">
-                        <span>Ваша корзина:</span>
-                        <strong><?php echo do_shortcode('[nc_ajax_cart]'); ?></strong>
-                    </a>
+                        <a href="#cart-popup" class="open-popup-link cart-customlocation cart__item cart-contents cart-contents">
+                          <span>Ваша корзина:</span>
+                          <strong>
+                            <span class="woocommerce-Price-amount amount"><?php echo WC()->cart->cart_contents_total; ?>
+                              <span class="woocommerce-Price-currencySymbol"> руб.</span>
+                            </span>
+                          </strong>
+                        </a>
                 </div>
             </div>
         </div>

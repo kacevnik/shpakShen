@@ -119,7 +119,7 @@
                     <div class="socials">
                         <a href="#" class="socials__item socials__item__email"><img src="/app/img/mail-icon.png" alt="Email"></a>
                         <a href="https://vk.com/shpakshenprodakshen" class="socials__item socials__item__vk"><img src="/app/img/vk-icon.png" alt="VK"></a>
-                        <a href="#cart-popup" class="open-popup-link cart-customlocation cart__item cart-contents cart-contents">
+                        <a data-fancybox data-src="#cart-popup" href="javascript:;" class="open-popup-link cart-customlocation cart__item cart-contents cart-contents" id="show_form_order">
                           <span>Ваша корзина:</span>
                           <strong>
                             <span class="woocommerce-Price-amount amount"><?php echo WC()->cart->cart_contents_total; ?>

@@ -19,7 +19,7 @@
             </div>
             <div class="col-md-5 col-sm-5 col-xs-6">
                 <div class="socials">
-                        <a href="#cart-popup" class="open-popup-link cart-customlocation cart__item cart-contents cart-contents">
+                        <a data-fancybox data-src="#cart-popup" href="javascript:;" class="open-popup-link cart-customlocation cart__item cart-contents cart-contents">
                           <span>Ваша корзина:</span>
                           <strong>
                             <span class="woocommerce-Price-amount amount"><?php echo WC()->cart->cart_contents_total; ?>

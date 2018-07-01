@@ -13,6 +13,20 @@ function woocommerce_support() {
     add_theme_support( 'wc-product-gallery-slider' );
 }
 
+//Заменяем знак после цены
+function add_my_currency( $currencies ) {
+    $currencies['RUB'] = __( 'Русский рубль', 'woocommerce' );
+    return $currencies;
+}
+add_filter('woocommerce_currency_symbol', 'add_my_currency_symbol', 10, 2);
+ 
+function add_my_currency_symbol( $currency_symbol, $currency ) {
+    switch( $currency ) {
+        case 'RUB': $currency_symbol = '&nbsp;руб.'; break;
+    }
+    return $currency_symbol;
+}
+
 add_filter('add_to_cart_fragments', 'header_add_to_cart_fragment');
 
 add_filter( 'woocommerce_add_to_cart_fragments', 'woocommerce_header_add_to_cart_fragment' );
@@ -20,7 +34,7 @@ add_filter( 'woocommerce_add_to_cart_fragments', 'woocommerce_header_add_to_cart
 function woocommerce_header_add_to_cart_fragment( $fragments ) {
     ob_start();
     ?>
-    <a href="#cart-popup" class="open-popup-link cart-customlocation cart__item cart-contents cart-contents">
+    <a data-fancybox data-src="#cart-popup" href="javascript:;" class="open-popup-link cart-customlocation cart__item cart-contents cart-contents">
       <span>Ваша корзина:</span>
       <strong>
         <span class="woocommerce-Price-amount amount"><?php echo WC()->cart->cart_contents_total; ?>
@@ -84,6 +98,7 @@ if (!function_exists('add_scripts')) { // если ф-я уже есть в до
         wp_enqueue_script("jquery");
         wp_enqueue_script('fancybox', get_template_directory_uri().'/js/jquery.fancybox.min.js','','',true); 
         wp_enqueue_script('owl-carusel', get_template_directory_uri().'/js/owl.carousel.min.js','','',true); 
+        wp_enqueue_script('form', get_template_directory_uri().'/js/jquery.form.js','','',true); 
         wp_enqueue_script('main', get_template_directory_uri().'/js/main.js','','',true); 
     }
 }

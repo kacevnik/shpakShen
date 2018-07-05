@@ -133,8 +133,3 @@
 
         </div>
     </header>
-    <script type="text/javascript">
-        function myFunction(x) {
-            x.classList.toggle("change");
-        }
-    </script>

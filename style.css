@@ -4006,3 +4006,35 @@ p > video {
 		padding: 0;
 	}
 }
+@media (max-width:480px) {
+	
+	.popup-order {
+    padding: 5px 11px 95px !important;
+}
+table.shop_table td.product-name a {
+    color: #333;
+    font-family: ProximaNovaLight;
+    font-size: 12px;
+    font-weight: 300;
+    line-height: 18px;
+    display: inline-block;
+    pointer-events: none;
+}
+.white-popup span {
+    margin: 0px 0 15px;
+    display: block;
+    font-size: 14px !important;
+}
+table.shop_table td.product-quantity {
+    padding: 10px;
+    width: 89px;
+    float: left;
+    text-align: right;
+    padding-right: 9px;
+    padding-left: 40px;
+}
+section.issues .container:after {
+    right: 0px;
+    top: -123px;
+}
+}

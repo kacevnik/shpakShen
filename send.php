@@ -6,7 +6,7 @@ require ($_SERVER['DOCUMENT_ROOT'].'/wp-includes/class-phpmailer.php');
 $sait_name       = get_option('blogname');
 $sait_url        = get_option('home');
 $adminEmail      = get_option('admin_email');
-$adminEmail      = 'kacevnik@yandex.ru';
+
 $mailServerLogin = get_option('mailserver_login');
 $mailServerPass  = get_option('mailserver_pass');
 $mailServerPort  = get_option('mailserver_port');

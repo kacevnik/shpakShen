@@ -123,7 +123,7 @@ endif;
                             if($nal == 'out-of-stock'){
                                 $nal_class     = 'no_instock_css';
                                 $nav_class_div = ' no-active-button';
-                                $nal_text      = 'На данный момент товара нет';
+                                $nal_text      = 'Вы можете заказать товар';
                             }else{
                                 $nal_class = 'instock_css';
                                 $nav_class_div = '';
@@ -158,13 +158,86 @@ endif;
                             </span>
                             <div class="add-to-cart-btn">
                                 <?php woocommerce_template_loop_add_to_cart_custom( $loop->post, $product ); ?>
-                                <a href="#popup-order" class="open-popup-link item__order">Заказать</a>
+                                <a data-fancybox data-src="#popup-order-<?php echo get_the_ID(); ?>" href="javascript:;" class="open-popup-link item__order">Заказать</a>
                             </div><!-- end add-to-cart-btn -->
                         </div><!-- end gallery -->
+                        <div id="popup-order-<?php echo get_the_ID(); ?>" class="white-popup popup-order">
+                            <div class="order-item">
+                                <h2>Заказать изделия</h2>
+                                <table class="shop_table_2 shop_table_responsive_2 cart_2 woocommerce-cart-form__contents_2" cellspacing="0">
+                                <thead>
+                                    <tr>
+                                        <th class="product-thumbnail">Товар</th>
+                                        <th class="product-name"></th>
+                                        <th class="product-quantity">Кол-во</th>
+                                        <th class="product-price">Стоимость</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr class="woocommerce-cart-form__cart-item cart_item">
+                                        <td class="product-thumbnail">
+                                            <a href="">
+                                                <img src="<?php echo get_the_post_thumbnail_url( $loop->ID, 'custom-thumbnails' ); ?>" class="attachment-woocommerce_thumbnail size-woocommerce_thumbnail wp-post-image" alt="">
+                                            </a>
+                                        </td>
+                                        <td class="product-name" data-title="Товар">
+                                            <a href=""><?php the_title(); ?></a>
+                                        </td>
+                                        <td class="product-quantity" data-title="Количество">
+                                            <div class="quantity">
+                                                <input type="number" class="input-text qty text" step="1" min="0" max="" name="quantity" value="1" title="Кол-во" size="4" pattern="[0-9]*" inputmode="numeric">
+                                            </div>
+                                        </td>
+                                        <td class="product-subtotal" data-title="Итого">
+                                            <span class="woocommerce-Price-amount amount">
+                                                <?php echo $price; ?>
+                                                <span class="woocommerce-Price-currencySymbol">&nbsp;руб.</span>
+                                            </span>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <div class="cart-collaterals_2">
+                                <div class="cart_totals_2">
+                                    <table cellspacing="0" class="shop_table_2 shop_table_responsive_2 itog">
+                                        <tbody>
+                                            <tr class="order-total">
+                                                <th>Итого</th>
+                                                <td data-title="Итого">
+                                                    <strong>
+                                                        <span class="woocommerce-Price-amount amount">
+                                                            <?php echo $price; ?>
+                                                            <span class="woocommerce-Price-currencySymbol">&nbsp;руб.</span>
+                                                        </span>
+                                                    </strong>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div><!-- cart_totals -->
+                            </div><!-- cart-collaterals -->
+                                <form id="form1" method="post" action="<?php echo get_template_directory_uri(); ?>/send.php">
+                                    <!-- Hidden Required Fields -->
+                                    <input type="hidden" name="form" value="Заказ на изготовление">
+                                    <input type="hidden" name="products" value="<?php echo the_title().'++1++'.$price.' руб.' ?>">
+                                    <!-- END Hidden Required Fields -->
+                                    <input type="text" name="ФИО" placeholder="ФИО">
+                                    <input type="text" name="phone" placeholder="Телефон / Почта">
+                                    <input type="text" name="adress" placeholder="Адрес доставки">
+                                    <select name="Способ доставки" name="oplata">
+                                        <option value="Не выбранно">Выберите способ оплаты</option>
+                                        <option value="Оплата при получении">Оплата при получении</option>
+                                        <option value="Оплата картой">Оплата картой</option>
+                                    </select>
+                                    <textarea name="comments" class="input-text " placeholder="Примечание к заказу" rows="2" cols="5"></textarea>
+                                    <input type="submit" class="send button alt" name="submit" value="Отправить заявку" id="send_order_2">
+                                </form>
+                            </div><!-- order-item -->
+                        </div><!-- popup-order -->
                     </div><!-- end item -->
                     <?php
                         endwhile;
-                        wp_reset_query();
+
                     ?>
                     <!-- END OWL-CAROUSEL ITEM & PRODUCT -->
                 </div><!--end owl-carousel -->

@@ -130,7 +130,7 @@ table.shop_table{
     margin: 0;
 }
 
-table.shop_table.itog{
+table.shop_table.itog, table.shop_table_2.itog{
     width: 100%;
 }
 
@@ -139,53 +139,53 @@ table.shop_table.itog{
     margin: 20px 0 50px;
 }
 
-table.shop_table, table.shop_table tr, table.shop_table td, table.shop_table th {
+table.shop_table, table.shop_table tr, table.shop_table td, table.shop_table th, table.shop_table_2, table.shop_table_2 tr, table.shop_table_2 td, table.shop_table_2 th {
     border: none;
 }
 
-table.shop_table tr th:nth-child(1) {
+table.shop_table tr th:nth-child(1), table.shop_table_2 tr th:nth-child(1) {
     text-align: left;
     width: 60px;
 }
 
-table.shop_table td {
+table.shop_table td, table.shop_table_2 td  {
     padding: 10px 0;
     border-top: 1px solid #d1d1d1;
     position: relative;
 }
 
-table.shop_table td.product-thumbnail {
+table.shop_table td.product-thumbnail, table.shop_table_2 td.product-thumbnail {
     padding: 0;
     width: 60px;
 }
 
-table.shop_table th.product-quantity {
+table.shop_table th.product-quantity, table.shop_table_2 th.product-quantity {
     width: 75px;
 }
 
-table.shop_table th.product-price {
+table.shop_table th.product-price, table.shop_table_2 th.product-price {
     width: 115px;
 }
 
-table.shop_table td.product-quantity{
+table.shop_table td.product-quantity, table.shop_table_2 td.product-quantity{
     padding: 10px;
     width: 75px;
 }
 
-table.shop_table td.product-subtotal{
+table.shop_table td.product-subtotal, table.shop_table_2 td.product-subtotal{
     width: 115px;
     text-align: right;
 }
 
-table.shop_table td.product-subtotal .woocommerce-Price-currencySymbol{
+table.shop_table td.product-subtotal .woocommerce-Price-currencySymbol, table.shop_table_2 td.product-subtotal .woocommerce-Price-currencySymbol{
     display: none;
 }
 
-table.shop_table td.product-thumbnail img{
+table.shop_table td.product-thumbnail img, table.shop_table_2 td.product-thumbnail img{
     width: 50px;
 }
 
-table.shop_table tr th {
+table.shop_table tr th, table.shop_table_2 tr th {
     color: #333;
     font-family: ProximaNovaSemibold;
     font-size: 18px;
@@ -195,7 +195,7 @@ table.shop_table tr th {
     text-align: center;
 }
 
-table.shop_table td.product-name a {
+table.shop_table td.product-name a, table.shop_table_2 td.product-name a {
     color: #333;
     font-family: ProximaNovaLight;
     font-size: 16px;
@@ -228,6 +228,7 @@ table.itog td {
     font-size: 18px;
     font-weight: 400;
     color: #282828;
+    margin-bottom: 10px;
 }
 
 table.shop_table .remove__custom {
@@ -243,6 +244,10 @@ table.shop_table .remove__custom {
     position: absolute;
     right: -30px;
     top: 23px;
+}
+
+table.shop_table_2{
+    margin: 0;
 }
 
 .white-popup p.form-row{
@@ -271,4 +276,48 @@ table.shop_table .remove__custom {
 
 #thanks h2:before{
     display: none;
+}
+
+.popup-order{
+    display: none;
+    position: relative;
+    background: #fff;
+    width: auto;
+    margin: 60px auto;
+    max-width: 529px;
+    width: 100%;
+    padding: 5px 60px 95px;
+}
+
+.popup-order .cart_totals{
+    margin-bottom: 35px;
+}
+
+section.about {
+    background-color: #fff;
+    margin: 0 0 0;
+    padding: 80px 0 100px 0;
+    position: relative;
+}
+
+.fixed{
+    position: fixed;
+}
+
+section.about h2{
+    margin-bottom: 35px;
+}
+
+.cart-collaterals_2{
+    margin-bottom: 35px;
+}
+
+@media (max-width: 992px){
+    .owl-prev span {
+        left: -8px;
+    }    
+
+    .owl-next span {
+        right: -8px;
+    }
 }
